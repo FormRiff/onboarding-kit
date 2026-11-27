@@ -1,0 +1,14 @@
+{
+  "name": "@onboarding/example-vanilla",
+  "version": "0.0.2",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@formriff/onboarding": "workspace:*"
+  }
+}
