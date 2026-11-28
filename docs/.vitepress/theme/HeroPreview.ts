@@ -259,7 +259,7 @@ export default defineComponent({
             h('div', { class: 'hero-app-content' }, [
               h('div', { class: 'hero-app-copy' }, [
                 h('strong', 'Your workspace'),
-                h('span', 'A little guidance. Right on time.'),
+                h('span', 'Manage your projects in one place.'),
               ]),
               h(
                 'span',
@@ -358,12 +358,12 @@ export default defineComponent({
               'span',
               { class: 'hero-preview-caption' },
               reducedMotion.value
-                ? 'A few lines. A little guidance.'
+                ? 'Tour preview'
                 : finished.value
-                  ? '02 / Ready to make it yours'
+                  ? 'Tour complete'
                   : showing.value
-                    ? `02 / Step ${stepIndex.value + 1} of 3`
-                    : '01 / Define your tour',
+                    ? `Step ${stepIndex.value + 1} of 3`
+                    : 'Tour configuration',
             ),
             h('div', { class: 'hero-preview-controls' }, [
               h(

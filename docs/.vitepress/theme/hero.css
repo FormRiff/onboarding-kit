@@ -26,7 +26,7 @@
   background: #111524;
   text-align: left;
   line-height: 1.5;
-  box-shadow: 0 20px 70px rgb(74 54 148 / 16%);
+  box-shadow: 0 18px 44px rgb(22 20 42 / 16%);
 }
 .hero-editor-bar,
 .hero-preview-footer {
@@ -65,7 +65,7 @@
   background: #7ed6a3;
 }
 .hero-code-scroll {
-  height: 420px;
+  height: 400px;
   overflow: auto;
   scrollbar-color: #4e5571 #111524;
 }
@@ -75,10 +75,10 @@
 }
 .hero-code {
   margin: 0;
-  padding: 24px;
+  padding: 20px;
   font-family: var(--vp-font-family-mono);
   font-size: 13px;
-  line-height: 20px;
+  line-height: 18px;
   white-space: pre-wrap;
   overflow-wrap: anywhere;
 }
@@ -304,9 +304,9 @@
 @media (min-width: 1200px) {
   .VPHomeHero.has-image .container {
     display: grid;
-    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.12fr);
     align-items: center;
-    max-width: 1280px;
+    max-width: 1152px;
   }
   .VPHomeHero.has-image .main {
     width: auto;
@@ -363,4 +363,81 @@
   .hero-app-tooltip {
     transition: none;
   }
+}
+
+.VPHome .VPHomeHero {
+  padding-top: calc(var(--vp-nav-height) + 2.5rem);
+  padding-bottom: 2.5rem;
+  border-bottom: 1px solid var(--vp-c-divider);
+  background: var(--vp-c-bg);
+}
+
+.VPHome .VPHomeHero .name {
+  margin-bottom: 12px;
+  font: 600 0.9375rem / 1.5 var(--vp-font-family-mono);
+  letter-spacing: 0;
+}
+
+.VPHome .VPHomeHero .text {
+  font-size: clamp(2.25rem, 4.2vw, 4rem);
+  line-height: 1.05;
+  letter-spacing: -0.05em;
+  text-wrap: balance;
+}
+
+.VPHome .VPHomeHero .tagline {
+  max-width: 32rem;
+  font-size: 1.0625rem;
+  font-weight: 400;
+  line-height: 1.65;
+}
+
+.VPHome .VPHomeHero .VPButton {
+  border-radius: 8px;
+}
+
+.VPHome .VPHomeHero .VPButton.alt {
+  border-color: var(--vp-c-divider);
+  background: var(--vp-c-bg);
+}
+
+.docs-install {
+  display: inline-block;
+  max-width: 100%;
+  margin-top: 20px;
+  text-align: left;
+}
+
+.docs-install-command {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 8px 7px 12px;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 8px;
+  background: var(--vp-c-bg);
+  color: var(--vp-c-text-2);
+  font: 0.8125rem / 1.5 var(--vp-font-family-mono);
+}
+
+.docs-install code {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.docs-install button {
+  margin-left: auto;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: var(--vp-c-bg-soft);
+  color: var(--vp-c-text-1);
+  font: 600 0.875rem / 1.5 var(--vp-font-family-base);
+}
+
+.docs-install-status {
+  display: block;
+  min-height: 1.25rem;
+  margin-top: 4px;
+  color: var(--vp-c-text-2);
+  font-size: 0.8125rem;
 }

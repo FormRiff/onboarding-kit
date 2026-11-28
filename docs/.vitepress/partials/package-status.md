@@ -1,3 +1,3 @@
-::: warning Before the first release
-Onboarding Kit 0.1 is an experimental preview. Try the [live example](/playground) without installing anything.
+::: warning Version %ONBOARDING_VERSION%
+Onboarding Kit APIs may change before 1.0. Try the [live example](/playground) without installing anything.
 :::

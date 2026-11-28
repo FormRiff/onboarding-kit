@@ -81,14 +81,14 @@ In an application with a managed lifecycle, call `kit.destroy()` when permanentl
 
 ## No bundler?
 
-After publication, use the standalone bundle without npm or a build tool. It exposes the `Onboarding` browser global:
+You can use the standalone bundle without npm or a build tool. It exposes the `Onboarding` browser global:
 
 ```html
 <link
   rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/@formriff/onboarding@0.1.2/dist/styles.css"
+  href="https://cdn.jsdelivr.net/npm/@formriff/onboarding@%ONBOARDING_VERSION%/dist/styles.css"
 />
-<script src="https://cdn.jsdelivr.net/npm/@formriff/onboarding@0.1.2/dist/cdn.global.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@formriff/onboarding@%ONBOARDING_VERSION%/dist/cdn.global.js"></script>
 <script>
   const kit = Onboarding.createOnboarding({
     tours: [

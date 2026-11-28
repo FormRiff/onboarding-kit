@@ -97,10 +97,25 @@ importers:
       '@formriff/onboarding':
         specifier: workspace:*
         version: link:../packages/core
+      '@formriff/onboarding-react':
+        specifier: workspace:*
+        version: link:../packages/react
+      react:
+        specifier: ^19.2.0
+        version: 19.3.1
+      react-dom:
+        specifier: ^19.2.0
+        version: 19.3.1(react@19.3.1)
       vue:
         specifier: ^3.5.43
         version: 3.5.46(typescript@5.9.3)
     devDependencies:
+      '@types/react':
+        specifier: ^19.2.0
+        version: 19.3.0
+      '@types/react-dom':
+        specifier: ^19.2.0
+        version: 19.3.0(@types/react@19.3.0)
       simple-icons:
         specifier: 16.38.1
         version: 16.38.1

@@ -37,7 +37,6 @@ export default defineComponent({
               ),
               h('strong', framework.name),
               h('span', framework.detail),
-              h('span', { class: 'framework-link-label' }, 'Get started'),
             ],
           ),
         ),

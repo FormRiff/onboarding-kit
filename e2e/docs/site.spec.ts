@@ -1,4 +1,7 @@
 import { expect, test as base } from '@playwright/test';
+import corePackage from '../../packages/core/package.json' with { type: 'json' };
+
+const { version } = corePackage;
 
 const test = base.extend<{ browserErrors: string[] }>({
   browserErrors: [
@@ -22,8 +25,9 @@ test('offers frameworks before the live demo and a copyable, complete React quic
 }, testInfo) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('./');
-  await expect(page.getByRole('heading', { level: 1 })).toContainText('Five minutes');
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('five minutes');
   await expect(page.locator('.VPHomeHero .tagline')).toContainText('In-app product tours');
+  await expect(page.locator('.preview-note')).toContainText(`Onboarding Kit v${version}`);
   const frameworks = await page.locator('.framework-grid').boundingBox();
   const demo = await page.locator('.live-tour').boundingBox();
   expect(frameworks!.y + frameworks!.height).toBeLessThan(demo!.y);
@@ -33,20 +37,43 @@ test('offers frameworks before the live demo and a copyable, complete React quic
     await expect(link.locator('svg path')).toHaveAttribute('d', /.+/);
     await expect(link.locator('.framework-mark')).toHaveAttribute('aria-hidden', 'true');
   }
+  await page.context().grantPermissions(['clipboard-read', 'clipboard-write']);
+  await page.getByRole('button', { name: 'Copy install command' }).click();
+  await expect(page.locator('.docs-install-status')).toHaveText('Copied');
+  expect(await page.evaluate(() => navigator.clipboard.readText())).toBe(
+    'pnpm add @formriff/onboarding',
+  );
   await page.screenshot({ path: testInfo.outputPath('home-desktop.png'), fullPage: true });
   await page.getByRole('link', { name: 'React quickstart', exact: true }).click();
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('React: your first tour');
   await expect(
     page.getByText('pnpm add @formriff/onboarding-react @formriff/onboarding', { exact: true }),
   ).toBeVisible();
+  await expect(page.locator('.warning .custom-block-title')).toHaveText(`Version ${version}`);
   const example = page.locator('div.language-tsx').first();
   await expect(example).toContainText('<OnboardingProvider options={options}>');
-  await page.context().grantPermissions(['clipboard-read', 'clipboard-write']);
   await example.hover();
   await example.locator('button.copy').click();
   const copied = await page.evaluate(() => window.navigator.clipboard.readText());
   expect(copied).toContain("kit.start('welcome')");
   expect(copied).toContain('export default function App()');
+
+  const demoSection = page.getByRole('region', { name: 'Live React tour' });
+  await demoSection.getByRole('button', { name: 'Show me around' }).click();
+  const tour = page.getByRole('dialog');
+  await expect(tour).toContainText('Welcome to your workspace');
+  await tour.getByRole('button', { name: 'Next', exact: true }).click();
+  await expect(tour).toContainText('Make something new');
+  await tour.getByRole('button', { name: 'Done', exact: true }).click();
+  await expect(tour).toHaveCount(0);
+});
+
+test('pins standalone CDN assets to the core package version', async ({ page }) => {
+  await page.goto('./getting-started/vanilla');
+  const example = page.locator('div.language-html').filter({ hasText: 'cdn.jsdelivr.net' });
+  const cdn = `https://cdn.jsdelivr.net/npm/@formriff/onboarding@${version}/dist`;
+  await expect(example).toContainText(`${cdn}/styles.css`);
+  await expect(example).toContainText(`${cdn}/cdn.global.js`);
 });
 
 test('keeps the consumer guide free of maintainer commands in both themes', async ({ page }) => {

@@ -1,4 +1,7 @@
 import { defineConfig } from 'vitepress';
+import corePackage from '../../packages/core/package.json' with { type: 'json' };
+
+const { version } = corePackage;
 
 const base = process.env.DOCS_BASE ?? '/';
 
@@ -13,7 +16,15 @@ export default defineConfig({
     ['link', { rel: 'icon', type: 'image/svg+xml', href: `${base}mark.svg` }],
     ['meta', { name: 'theme-color', content: '#6554d9' }],
   ],
-  markdown: { lineNumbers: true },
+  markdown: {
+    lineNumbers: false,
+    config(md) {
+      // Resolve the version before Markdown renders text and copyable code blocks.
+      md.core.ruler.before('normalize', 'onboarding-version', (state) => {
+        state.src = state.src.replaceAll('%ONBOARDING_VERSION%', version);
+      });
+    },
+  },
   themeConfig: {
     logo: '/mark.svg',
     siteTitle: 'Onboarding Kit',
@@ -24,7 +35,7 @@ export default defineConfig({
     ],
     sidebar: [
       {
-        text: 'Your first tour',
+        text: 'Getting started',
         items: [
           { text: 'Start here', link: '/getting-started/' },
           { text: 'React', link: '/getting-started/react' },
@@ -35,7 +46,7 @@ export default defineConfig({
         ],
       },
       {
-        text: 'Make it yours',
+        text: 'Guides',
         items: [
           { text: 'Live example', link: '/playground' },
           { text: 'Common recipes', link: '/recipes' },
@@ -52,8 +63,9 @@ export default defineConfig({
         ],
       },
     ],
+    socialLinks: [{ icon: 'github', link: 'https://github.com/FormRiff/onboarding-kit' }],
     search: { provider: 'local' },
     outline: [2, 3],
-    footer: { message: 'MIT licensed. No tracking. Just useful onboarding.' },
+    footer: { message: 'Released under the MIT License.' },
   },
 });

@@ -65,6 +65,8 @@ pnpm docs:preview
 ```
 
 Output is `docs/.vitepress/dist`; set `DOCS_BASE=/onboarding/` for subpath hosting.
+The homepage, quickstarts, and standalone CDN example use the version in
+`packages/core/package.json`. Rebuild the docs from the release revision to update them.
 No deployment or hosting provider is configured. The private site pins VitePress
 2.0.0-alpha.21 on Vite 8 rather than stable VitePress 1's Vite 5 dependency.
 The workspace compiler is TypeScript 5.9, independent of consumers' compilers.
